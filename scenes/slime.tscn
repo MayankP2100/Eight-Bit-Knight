@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://dh6p5fjw6u0tw"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_i7guh"]
+[ext_resource type="Texture2D" uid="uid://mqukcugr7y5u" path="res://assets/sprites/slime_green.png" id="1_psr50"]
+[ext_resource type="PackedScene" uid="uid://ogxgsko6niof" path="res://scenes/killzone.tscn" id="3_q2u46"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh8pj"]
+atlas = ExtResource("1_psr50")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fg6ch"]
+atlas = ExtResource("1_psr50")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jngl"]
+atlas = ExtResource("1_psr50")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjxsv"]
+atlas = ExtResource("1_psr50")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bsfuk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hh8pj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fg6ch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jngl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjxsv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_220r7"]
+radius = 6.0
+
+[node name="Slime" type="Node2D"]
+script = ExtResource("1_i7guh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bsfuk")
+autoplay = "default"
+frame_progress = 0.342577
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(-9, 0)
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(9, 0)
+
+[node name="Killzone" parent="." instance=ExtResource("3_q2u46")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_220r7")
